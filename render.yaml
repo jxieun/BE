@@ -8,23 +8,20 @@ services:
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: production
+      # Supabase PostgreSQL 연결 정보
       - key: DATABASE_URL
-        fromDatabase:
-          name: jeonbongjun-db
-          property: connectionString
+        sync: false  # Render 대시보드에서 수동 설정
+      - key: DB_USERNAME
+        sync: false  # Render 대시보드에서 수동 설정
+      - key: DB_PASSWORD
+        sync: false  # Render 대시보드에서 수동 설정
+      # Upstash Redis 연결 정보
       - key: REDIS_URL
-        fromDatabase:
-          name: jeonbongjun-redis
-          property: connectionString
+        sync: false  # Render 대시보드에서 수동 설정
+      # API Keys
       - key: OPENAI_API_KEY
-        sync: false  # 수동으로 Render 대시보드에서 설정
+        sync: false
       - key: DEEPSEARCH_API_KEY
-        sync: false  # 수동으로 Render 대시보드에서 설정
-
-databases:
-  - name: jeonbongjun-db
-    databaseName: roboadvisor
-    plan: free
-    
-  - name: jeonbongjun-redis
-    plan: free
+        sync: false
+      - key: AI_API_BASE_URL
+        value: https://jeonbongjun-ai.onrender.com
