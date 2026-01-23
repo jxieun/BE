@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: jeonbongjun-backend
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: jeonbongjun-db
+          property: connectionString
+      - key: REDIS_URL
+        fromDatabase:
+          name: jeonbongjun-redis
+          property: connectionString
+      - key: OPENAI_API_KEY
+        sync: false  # 수동으로 Render 대시보드에서 설정
+      - key: DEEPSEARCH_API_KEY
+        sync: false  # 수동으로 Render 대시보드에서 설정
+
+databases:
+  - name: jeonbongjun-db
+    databaseName: roboadvisor
+    plan: free
+    
+  - name: jeonbongjun-redis
+    plan: free
