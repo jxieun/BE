@@ -15,7 +15,7 @@ Supabase는 **영구 무료**로 PostgreSQL 데이터베이스를 제공합니�
 1. 대시보드에서 **"New Project"** 클릭
 2. 프로젝트 정보 입력:
    - **Name**: `robo-advisor-db` (원하는 이름)
-   - **Database Password**: 강력한 비밀번호 생성 (저장 필수!)
+   - **Database Password**: 강력한 비밀번호 생성 (저장 필수!) wjsqhdwnsvmfhwprxm
    - **Region**: `Northeast Asia (Seoul)` 또는 `Southeast Asia (Singapore)`
    - **Pricing Plan**: **Free** 선택
 3. **"Create new project"** 클릭
@@ -34,6 +34,10 @@ Supabase는 **영구 무료**로 PostgreSQL 데이터베이스를 제공합니�
 ```
 postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-ap-northeast-1.pooler.supabase.com:6543/postgres
 ```
+
+postgresql://postgres:[wjsqhdwnsvmfhwprxm]@db.pfmrpgoqwweadaytpfoz.supabase.co:5432/postgres
+
+postgresql://postgres.pfmrpgoqwweadaytpfoz:[wjsqhdwnsvmfhwprxm]@aws-1-ap-northeast-2.pooler.supabase.com:5432/postgres
 
 ### 2-2. JDBC URL 변환
 

@@ -44,6 +44,7 @@ Upstash Console → **Details** → **Spring Boot** 탭:
 ```
 rediss://default:[PASSWORD]@musical-mollusk-12345.upstash.io:6379
 ```
+redis-cli --tls -u redis://default:AcokAAIncDFjM2NkZGMwM2Y3YTE0NmM1OTMxOTFjZTYwY2NhZjU1MnAxNTE3NDg@social-halibut-51748.upstash.io:6379
 
 또는 **Redis CLI** 탭에서 개별 정보 확인:
 ```properties
@@ -106,6 +107,7 @@ GET spring:session:sessions:[session-id]
 # 세션 데이터 확인
 ```
 
+pcsk_59Sxkd_Etsrs4NZVQoLZpoLg3XVcD44FUMHBLuwsNMaxGQwzNeD15SqX5vm2UxojssUkkG
 ---
 
 ## ✅ 검증
