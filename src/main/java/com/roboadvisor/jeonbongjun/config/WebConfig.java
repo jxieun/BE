@@ -10,7 +10,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // 모든 경로에 대해 CORS 허용
-                .allowedOriginPatterns("*") // 모든 오리진 허용 (개발 환경용)
+                .allowedOriginPatterns("https://fe-kohl-three.vercel.app", "http://localhost:3000",
+                        "http://localhost:5173", "*") // 배포 주소 명시
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*")
                 .allowCredentials(true) // 세션 쿠키 허용
