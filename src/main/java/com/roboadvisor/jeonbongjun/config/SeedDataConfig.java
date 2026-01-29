@@ -38,8 +38,7 @@ public class SeedDataConfig {
                     new InputStreamReader(
                             new ClassPathResource("krx_stocks.csv").getInputStream(),
                             "EUC-KR" // KRX CSV 파일 인코딩
-                    )
-            )) {
+            ))) {
 
                 String line = reader.readLine(); // 첫 번째 줄(헤더)은 건너뜀
 
@@ -56,16 +55,16 @@ public class SeedDataConfig {
 
                     try {
                         // DB 컬럼에 맞게 CSV 데이터 추출 (따옴표는 parseCsvLine에서 이미 제거됨)
-                        String stockId = data[1].trim();     // 2번 컬럼 (종목 코드)
-                        String market = data[6].trim();      // 7번 컬럼 (시장 구분)
-                        String stockName = data[3].trim();   // 4번 컬럼 (종목명/약칭)
+                        String stockId = data[1].trim(); // 2번 컬럼 (종목 코드)
+                        String market = data[6].trim(); // 7번 컬럼 (시장 구분)
+                        String stockName = data[3].trim(); // 4번 컬럼 (종목명/약칭)
                         String tickerSymbol = data[0].trim(); // 1번 컬럼 (표준 코드)
 
                         // 우리 Stock 엔티티 형식에 맞게 빌드
                         Stock stock = Stock.builder()
-                                .stockId(stockId)         // (CSV 2번)
-                                .market(market)         // (CSV 7번)
-                                .stockName(stockName)   // (CSV 4번)
+                                .stockId(stockId) // (CSV 2번)
+                                .market(market) // (CSV 7번)
+                                .stockName(stockName) // (CSV 4번)
                                 .tickerSymbol(tickerSymbol) // (CSV 1번)
                                 .build();
 
@@ -77,8 +76,15 @@ public class SeedDataConfig {
                     }
                 }
 
-                // 4. 리스트에 담은 모든 Stock 엔티티를 DB에 한 번에 저장 (Batch Insert)
-                stockRepository.saveAll(stockList);
+                // 4. 리스트에 담은 Stock 엔티티를 나누어 저장 (Batch Insert + Chunking)
+                int batchSize = 500;
+                for (int i = 0; i < stockList.size(); i += batchSize) {
+                    int end = Math.min(i + batchSize, stockList.size());
+                    List<Stock> batchList = stockList.subList(i, end);
+                    stockRepository.saveAll(batchList);
+                    log.info("⏳ Stock 데이터 저장 진행 중... ({}/{})", end, stockList.size());
+                }
+
                 log.info("✅ Stock 마스터 데이터 {}개 적재 완료!", stockList.size());
 
             } catch (Exception e) {
